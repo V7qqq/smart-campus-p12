@@ -1,0 +1,20 @@
+$ grep -rnE "dangerouslySetInnerHTML|innerHTML|eval\(|new Function" src
+(no result)
+
+$ grep -rniE "api[_-]?key|secret|token|password|sk-[a-z0-9]" src docs *.md package.json
+AGENTS.md:28:- No `.env` and no keys are needed. Nothing in this project needs a secret.
+
+$ git ls-files | grep -i "\.env"
+(no result)
+
+$ npm audit --omit=dev
+found 0 vulnerabilities
+
+$ npm audit (all, summary)
+24 vulnerabilities (2 low, 7 moderate, 13 high, 2 critical)
+
+$ curl -sI https://smart-campus-room-av-idf7.bolt.host/  (one normal request to my own site, no scanning)
+HTTP/1.1 200 OK
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+DAST live: start=<img src=x onerror=alert(1)> duration=30 -> {"imgs":0,"alerts":0,"out":"Check your input | Enter the start time as HH:MM, for example 10:00. | Reason code: INVALID_START || Checks run: 1. Bookings unchanged: yes"}

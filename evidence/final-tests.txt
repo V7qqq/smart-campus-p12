@@ -1,0 +1,22 @@
+$ npm test
+
+> vite-react-typescript-starter@0.0.0 test
+> vitest run
+
+
+ RUN  v2.1.9 C:/Users/Jla33/Desktop/soft/practice 12/code-based
+
+ ✓ src/booking.test.js (18 tests) 4ms
+ ✓ src/mitigations.test.ts (8 tests) 4ms
+ ✓ src/booking.regression.test.js (32 tests) 7ms
+ ✓ src/contract.test.tsx (12 tests) 57ms
+ ✓ src/rooms.test.tsx (24 tests) 73ms
+ ✓ src/fieldErrors.test.tsx (8 tests) 75ms
+ ✓ src/explanation.test.tsx (16 tests) 211ms
+
+ Test Files  7 passed (7)
+      Tests  118 passed (118)
+   Start at  19:49:41
+   Duration  2.46s (transform 226ms, setup 1.59s, collect 881ms, tests 431ms, environment 4.29s, prepare 711ms)
+
+exit code: 0

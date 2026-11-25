@@ -1,0 +1,22 @@
+$ npx vitest run src/contract.test.tsx --reporter=verbose
+
+ RUN  v2.1.9 C:/Users/Jla33/Desktop/soft/practice 12/code-based
+
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T1 valid free interval
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T2 overlap with existing booking
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T3 blocked room
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T4 duration = 0
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T5 duration = 121
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T6 past start time
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T7 adjacent non-overlapping interval
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > T8 booking data unchanged after all checks
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > extra: start equal to now, bad format, decimal duration, end after midnight
+ ✓ src/contract.test.tsx > Practice 12 contract - logic > extra: validation comes before blocked (blocked + past start = PAST_START)
+ ✓ src/contract.test.tsx > Practice 12 contract - UI > T1-T7 through the screen give the same codes, T8 shows bookings unchanged
+ ✓ src/contract.test.tsx > Practice 12 contract - UI > script-like input is shown as plain text error, not HTML
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  19:49:53
+   Duration  2.02s (transform 59ms, setup 218ms, collect 138ms, tests 51ms, environment 961ms, prepare 448ms)
+

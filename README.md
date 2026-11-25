@@ -31,3 +31,11 @@ npm audit              # dependency check (read only)
 Agent rules, acceptance criteria and forbidden actions are in `AGENTS.md` (Claude Code reads it through `CLAUDE.md`).
 
 Times are whole minutes after midnight, for example 600 = 10:00.
+
+## Practice 12 files
+- `docs/contract.md` - shared user story, AC1-AC6, inputs/outputs, test inputs T1-T8.
+- `src/lib/contract.ts`, `src/components/ContractChecker.tsx`, `src/contract.test.tsx` - code-based solution.
+- `low-code/` - Power Apps export (`SmartCampusP12LowCode.msapp`) and readable YAML source (`App.pa.yaml`, `Screen1.pa.yaml`).
+- `report/` - report (PDF, DOCX). `screenshots/` - both apps and test results. `evidence/` - real command outputs and time log.
+- `docs/ai-use.md` - AI prompts, problems and verification.
+- Live demo: https://smart-campus-room-av-idf7.bolt.host

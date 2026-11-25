@@ -1,0 +1,9 @@
+Live site: https://smart-campus-room-av-idf7.bolt.host (Bolt version 22), headless Chrome 2026-11-25 19:53
+code_T1: start=10:00 duration=60 blocked=false -> Available | A-101 is available from 10:00 to 11:00. | Reason code: AVAILABLE || Checks run: 1. Bookings unchanged: yes
+code_T2: start=09:30 duration=60 blocked=false -> Unavailable | Overlaps existing booking 09:00-10:00. | Reason code: OVERLAP || Checks run: 2. Bookings unchanged: yes
+code_T3: start=10:00 duration=60 blocked=true -> Unavailable | A-101 is blocked and cannot be booked. | Reason code: BLOCKED || Checks run: 3. Bookings unchanged: yes
+code_T4: start=10:00 duration=0 blocked=false -> Check your input | Duration must be a whole number from 1 to 120 minutes. | Reason code: INVALID_DURATION || Checks run: 4. Bookings unchanged: yes
+code_T5: start=10:00 duration=121 blocked=false -> Check your input | Duration must be a whole number from 1 to 120 minutes. | Reason code: INVALID_DURATION || Checks run: 5. Bookings unchanged: yes
+code_T6: start=07:00 duration=30 blocked=false -> Check your input | Start time must be after the current time 08:00. | Reason code: PAST_START || Checks run: 6. Bookings unchanged: yes
+code_T7: start=10:00 duration=120 blocked=false -> Available | A-101 is available from 10:00 to 12:00. | Reason code: AVAILABLE || Checks run: 7. Bookings unchanged: yes
+code_T8 (after T1-T7): Available | A-101 is available from 10:00 to 12:00. | Reason code: AVAILABLE || Checks run: 7. Bookings unchanged: yes
