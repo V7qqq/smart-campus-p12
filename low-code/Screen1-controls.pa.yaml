@@ -1,0 +1,168 @@
+- lblTitle:
+    Control: Label@2.5.1
+    Properties:
+      Text: ="Room A-101 - availability check (Power Apps)"
+      FontWeight: =FontWeight.Bold
+      Size: =22
+      X: =40
+      Y: =20
+      Width: =900
+      Height: =50
+- lblSub:
+    Control: Label@2.5.1
+    Properties:
+      Text: ="Practice 12 contract, low-code version. Current time 08:00 (fixed). Fictional data."
+      Color: =RGBA(100, 116, 139, 1)
+      Size: =13
+      X: =40
+      Y: =68
+      Width: =900
+      Height: =32
+- lblStart:
+    Control: Label@2.5.1
+    Properties:
+      Text: ="Start time (HH:MM)"
+      FontWeight: =FontWeight.Semibold
+      X: =40
+      Y: =115
+      Width: =320
+      Height: =32
+- txtStart:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      Default: ="10:00"
+      HintText: ="10:00"
+      X: =40
+      Y: =148
+      Width: =320
+      Height: =42
+- lblDuration:
+    Control: Label@2.5.1
+    Properties:
+      Text: ="Duration (minutes)"
+      FontWeight: =FontWeight.Semibold
+      X: =40
+      Y: =200
+      Width: =320
+      Height: =32
+- txtDuration:
+    Control: Classic/TextInput@2.3.2
+    Properties:
+      Default: ="60"
+      HintText: ="60"
+      X: =40
+      Y: =233
+      Width: =320
+      Height: =42
+- chkBlocked:
+    Control: Classic/CheckBox@2.1.0
+    Properties:
+      Text: ="Room is blocked"
+      Default: =false
+      X: =40
+      Y: =288
+      Width: =320
+      Height: =40
+- btnCheck:
+    Control: Classic/Button@2.2.0
+    Properties:
+      Text: ="Check availability"
+      X: =40
+      Y: =340
+      Width: =320
+      Height: =46
+      OnSelect: |-
+        =With({s: Trim(txtStart.Text), d: Trim(txtDuration.Text)},
+          With({okStart: IsMatch(s, "([01][0-9]|2[0-3]):[0-5][0-9]"), okDur: IsMatch(d, "[0-9]{1,4}")},
+            With({st: If(okStart, Value(Left(s, 2)) * 60 + Value(Right(s, 2)), -1), du: If(okDur, Value(d), -1)},
+              With({hit: First(Filter(Bookings, st < EndMin && st + du > StartMin))},
+                With({code: If(
+                    !okStart, "INVALID_START",
+                    st <= NowMin, "PAST_START",
+                    du <= 0 || du > 120, "INVALID_DURATION",
+                    st + du > 1440, "END_AFTER_MIDNIGHT",
+                    chkBlocked.Value, "BLOCKED",
+                    !IsBlank(hit), "OVERLAP",
+                    "AVAILABLE")},
+                  Set(varResult, {
+                    Code: code,
+                    Available: code = "AVAILABLE",
+                    IsInputError: code in ["INVALID_START", "PAST_START", "INVALID_DURATION", "END_AFTER_MIDNIGHT"],
+                    Message: Switch(code,
+                      "AVAILABLE", "A-101 is available from " & Text(Int(st / 60), "00") & ":" & Text(Mod(st, 60), "00") & " to " & Text(Int((st + du) / 60), "00") & ":" & Text(Mod(st + du, 60), "00") & ".",
+                      "INVALID_START", "Enter the start time as HH:MM, for example 10:00.",
+                      "PAST_START", "Start time must be after the current time 08:00.",
+                      "INVALID_DURATION", "Duration must be a whole number from 1 to 120 minutes.",
+                      "END_AFTER_MIDNIGHT", "The booking must end by 24:00.",
+                      "BLOCKED", "A-101 is blocked and cannot be booked.",
+                      "Overlaps existing booking " & Text(Int(hit.StartMin / 60), "00") & ":" & Text(Mod(hit.StartMin, 60), "00") & "-" & Text(Int(hit.EndMin / 60), "00") & ":" & Text(Mod(hit.EndMin, 60), "00") & ".")
+                  })
+                )
+              )
+            )
+          )
+        );
+        Set(varChecks, Coalesce(varChecks, 0) + 1)
+- lblResult:
+    Control: Label@2.5.1
+    Properties:
+      Text: =If(IsBlank(varResult), "Enter a start time and duration, then press Check availability.", If(varResult.Available, "Available", If(varResult.IsInputError, "Check your input", "Unavailable")))
+      FontWeight: =FontWeight.Bold
+      Size: =20
+      Color: =If(IsBlank(varResult), RGBA(100, 116, 139, 1), If(varResult.Available, RGBA(4, 120, 87, 1), If(varResult.IsInputError, RGBA(180, 83, 9, 1), RGBA(185, 28, 28, 1))))
+      Fill: =If(IsBlank(varResult), RGBA(255, 255, 255, 1), If(varResult.Available, RGBA(236, 253, 245, 1), If(varResult.IsInputError, RGBA(255, 251, 235, 1), RGBA(254, 242, 242, 1))))
+      PaddingLeft: =16
+      X: =420
+      Y: =115
+      Width: =560
+      Height: =50
+- lblMessage:
+    Control: Label@2.5.1
+    Properties:
+      Text: =If(IsBlank(varResult), "", varResult.Message)
+      PaddingLeft: =16
+      X: =420
+      Y: =165
+      Width: =560
+      Height: =40
+- lblCode:
+    Control: Label@2.5.1
+    Properties:
+      Text: |-
+        =If(IsBlank(varResult), "", "Reason code: " & varResult.Code)
+      Color: =RGBA(100, 116, 139, 1)
+      Size: =12
+      PaddingLeft: =16
+      X: =420
+      Y: =205
+      Width: =560
+      Height: =30
+- lblBookingsTitle:
+    Control: Label@2.5.1
+    Properties:
+      Text: ="Existing bookings - A-101"
+      FontWeight: =FontWeight.Semibold
+      X: =420
+      Y: =255
+      Width: =560
+      Height: =32
+- lblBookings:
+    Control: Label@2.5.1
+    Properties:
+      Text: =Concat(Bookings, Text(Int(StartMin / 60), "00") & ":" & Text(Mod(StartMin, 60), "00") & " - " & Text(Int(EndMin / 60), "00") & ":" & Text(Mod(EndMin, 60), "00") & "      Booked", Char(10))
+      VerticalAlign: =VerticalAlign.Top
+      X: =420
+      Y: =288
+      Width: =560
+      Height: =60
+- lblDataCheck:
+    Control: Label@2.5.1
+    Properties:
+      Text: |-
+        ="Checks run: " & Coalesce(varChecks, 0) & ". Bookings unchanged: " & If(Concat(Bookings, StartMin & "-" & EndMin, ",") = "540-600,720-780", "yes", "NO")
+      Color: =RGBA(100, 116, 139, 1)
+      Size: =12
+      X: =420
+      Y: =352
+      Width: =560
+      Height: =30
