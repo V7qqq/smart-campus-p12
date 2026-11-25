@@ -1,6 +1,6 @@
 $ npx vitest run src/contract.test.tsx --reporter=verbose
 
- RUN  v2.1.9 C:/Users/Jla33/Desktop/soft/practice 12/code-based
+ RUN  v2.1.9 ./code-based
 
  ✓ src/contract.test.tsx > Practice 12 contract - logic > T1 valid free interval
  ✓ src/contract.test.tsx > Practice 12 contract - logic > T2 overlap with existing booking

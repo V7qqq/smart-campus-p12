@@ -4,7 +4,7 @@ $ npm test
 > vitest run
 
 
- RUN  v2.1.9 C:/Users/Jla33/Desktop/soft/practice 12/code-based
+ RUN  v2.1.9 ./code-based
 
  ✓ src/booking.test.js (18 tests) 5ms
  ✓ src/mitigations.test.ts (8 tests) 3ms
