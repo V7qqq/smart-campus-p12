@@ -16,8 +16,10 @@ The app only checks. It never creates, saves or changes a booking.
 - `src/lib/explanation.ts` - explanation input/output validation, mock adapter, timeout and deterministic fallback.
 - `src/lib/format.ts` - time formatting helpers. `src/lib/sampleData.ts` only re-exports data.
 - `src/data/rooms.ts` - fictional rooms and bookings (fixtures). Fixed current time 08:00 (480).
+- `src/lib/contract.ts` - Practice 12 contract: 1) validateRequest (start HH:MM, duration 1-120), 2) calculate (uses getBookingViolations), 3) messageFor. `checkSlot()` returns available, reasonCode, message. Contract text in `docs/contract.md`.
+- `src/data/contractRoom.ts` - Practice 12 room A-101, now 08:00, bookings 09:00-10:00 and 12:00-13:00 (read only, from fixtures).
 - `src/components/` - UI only. `RoomChecker.tsx` keeps state and calls lib functions, other components only render.
-- Tests: `src/booking.test.js`, `src/booking.regression.test.js` (rules), `src/rooms.test.tsx` (AC/F rules + UI in jsdom), `src/explanation.test.tsx` (explanation T01-T16).
+- Tests: `src/booking.test.js`, `src/booking.regression.test.js` (rules), `src/rooms.test.tsx` (AC/F rules + UI in jsdom), `src/explanation.test.tsx` (explanation T01-T16), `src/contract.test.tsx` (Practice 12 T1-T8, logic + UI).
 - Flow: input -> `checkAvailability()` -> `CheckResult` -> ResultPanel / ExplanationPanel.
 
 ## Setup

@@ -1,5 +1,7 @@
 # Smart Campus Room Availability Checker
 
+Practice 12: the first tab "Practice 12 checker" is the code-based solution of the shared contract (`docs/contract.md`): one room A-101, start time + duration, blocked switch, result with reason code. Tests T1-T8 are in `src/contract.test.tsx`. The low-code version (Power Apps) is in `low-code/`. The second tab is the old room catalog.
+
 Small React + TypeScript (Vite) app. A student filters rooms by attendees and equipment, picks one room and a time slot, and sees Available or Unavailable with reasons. All rooms and bookings are fictional. The app only checks availability, it does not create or save bookings. No backend, no login, no database, no API keys.
 
 The "Explain availability" button uses a local mock adapter (no real AI API call). The rule checker always decides the status, the explanation only describes it. On timeout, error or bad output the app shows a deterministic fallback text.
